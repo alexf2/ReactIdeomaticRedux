@@ -1,0 +1,34 @@
+{
+	"onDidClearBookmarkEmitter": {},
+	"onDidClearAllBookmarksEmitter": {},
+	"onDidAddBookmarkEmitter": {},
+	"onDidRemoveBookmarkEmitter": {},
+	"onDidUpdateBookmarkEmitter": {},
+	"bookmarks": [
+		{
+			"fsPath": "$ROOTPATH$\\src\\AppRouter.js",
+			"bookmarks": [
+				101
+			]
+		},
+		{
+			"fsPath": "$ROOTPATH$\\src\\Partners\\employeeEditDescr.js",
+			"bookmarks": [
+				18,
+				224
+			]
+		},
+		{
+			"fsPath": "$ROOTPATH$\\src\\Radon\\ctrl\\CtrlBase.js",
+			"bookmarks": [
+				22
+			]
+		},
+		{
+			"fsPath": "$ROOTPATH$\\src\\FormExt\\controls\\CtrlEditHeaderWrapper.js",
+			"bookmarks": [
+				21
+			]
+		}
+	]
+}
