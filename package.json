@@ -69,7 +69,9 @@
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
     "test": "gulp test",
-    "test:auto": "gulp test:auto"
+    "test:auto": "gulp test:auto",
+    "lint": "tslint src/**/*.tsx src/**/*.ts --project tsconfig.json && eslint --ext .js --ext .jsx src --quiet",
+    "lint:fix": "eslint --ext .js --ext .jsx src --fix && tslint --fix src/**/*.tsx src/**/*.ts --project tsconfig.json"
   },
   "eslintConfig": {
     "root": true,
