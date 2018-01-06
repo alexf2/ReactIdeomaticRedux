@@ -1,30 +1,30 @@
 {
   "compilerOptions": {
-    "jsx": "react",
+    "target": "es6",
+    "module": "commonjs",
+    "target": "es2015",
+    "lib": [
+      "esnext"
+     ],
     "sourceMap": true,
-    "target": "es5",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
+    "outDir": "../.tmp-srv",
+    "rootDir": "server",
     "typeRoots": ["node_modules/@types/"],
     "types": [
-      "axios",
-      "react-router",
-      "react",
-      "react-dom",      
       "jasmine",
-      "es6-shim",
       "lodash",
-      "redux",
-      "immutable",
-      "redux-thunk"
+      "node",
+      "koa",
     ]
   },
   "compileOnSave": false,
   "filesGlob": [
-    "client/**/*.ts",
-    "client/**/*.tsx",
+    "server/**/*.ts",
+    "server/**/*.tsx",
     "!node_modules/**",
     "!**/*-spec.ts"
   ]
