@@ -31,7 +31,7 @@ export default class RandomApi extends Koa {
   /**
    * Starts the application and binds to configured address and port
    */
-  public start = (): void => {
+  public readonly start = (): void => {
     const ip: string = this.config.get('ip');
     const port: number = this.config.get('port');
 

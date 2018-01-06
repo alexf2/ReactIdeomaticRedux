@@ -11,7 +11,7 @@ export default class ApiRouter extends KoaRouter {
   /**
    * Initialize routes
    */
-  private setupRoutes = (): void => {
+  private readonly setupRoutes = (): void => {
     this.get('/hellos', HelloController.list);
   }
 }
