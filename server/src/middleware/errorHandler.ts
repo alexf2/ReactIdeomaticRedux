@@ -1,6 +1,6 @@
 import { IRouterContext } from 'koa-router';
 
-import { ContextualLogger } from '../contextualLogger';
+import { IContextualLogger } from '../contextualLogger';
 import ctxLogger from '../logger';
 
 type ResponseStatus = 'ok' | 'error';
@@ -8,7 +8,7 @@ type ResponseStatus = 'ok' | 'error';
 /**
  * Simple HTTP response
  */
-interface SimpleResponse {
+interface ISimpleResponse {
   readonly status: ResponseStatus;
   readonly message?: string;
 }
@@ -16,9 +16,9 @@ interface SimpleResponse {
 /**
  * ApplicationError, understood by error handler
  */
-interface ApplicationError {
+interface IApplicationError {
   readonly status: number;
-  readonly body: SimpleResponse;
+  readonly body: ISimpleResponse;
 }
 
 /**
@@ -28,7 +28,7 @@ interface ApplicationError {
  * @return Function expecting router context and returning function expecting an error
  */
 /* tslint:disable-next-line:no-any */
-const handleError: (logger?: ContextualLogger) => (ctx: IRouterContext) => (err: ApplicationError | any) => void =
+const handleError: (logger?: IContextualLogger) => (ctx: IRouterContext) => (err: IApplicationError | any) => void =
   (logger) =>
     (ctx) =>
       (err) => {
@@ -38,7 +38,7 @@ const handleError: (logger?: ContextualLogger) => (ctx: IRouterContext) => (err:
           ctx.body = err.body;
         } else {
           logger && logger.error(ctx, 'Internal server error', err);
-          const payload: SimpleResponse = {
+          const payload: ISimpleResponse = {
             status: 'error',
             message: err && err.message ? err.message : null
           };
@@ -48,13 +48,13 @@ const handleError: (logger?: ContextualLogger) => (ctx: IRouterContext) => (err:
       };
 
 /* tslint:disable-next-line:no-any */
-const errorHandler: (ctx: IRouterContext) => (err: ApplicationError | any) => void = handleError(ctxLogger);
+const errorHandler: (ctx: IRouterContext) => (err: IApplicationError | any) => void = handleError(ctxLogger);
 
 export default errorHandler;
 
 export {
-  ApplicationError,
-  SimpleResponse,
+  IApplicationError,
+  ISimpleResponse,
   ResponseStatus,
 
   errorHandler

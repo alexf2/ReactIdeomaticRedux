@@ -1,6 +1,6 @@
 import { IMiddleware, IRouterContext } from 'koa-router';
 
-import { ContextualLogger } from '../contextualLogger';
+import { IContextualLogger } from '../contextualLogger';
 
 /**
  * HTTP Status ranges
@@ -55,7 +55,7 @@ const apachyLogString: (ctx: IRouterContext) => string =
  * Simple logging middleware for Koa since none of the existing ones
  * seemed to do what was needed to get readable logs with request ID.
  */
-const koaLogger: (logger: ContextualLogger) => IMiddleware =
+const koaLogger: (logger: IContextualLogger) => IMiddleware =
   (logger) =>
     async(ctx: IRouterContext, next: Function) => {
       const startAt: [number, number] = process.hrtime();

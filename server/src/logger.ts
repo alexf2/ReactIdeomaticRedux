@@ -5,7 +5,7 @@ import * as moment from 'moment';
 import * as R from 'ramda';
 import * as logger from 'winston';
 
-import { ContextualLogger, getContextualLogger } from './contextualLogger';
+import { IContextualLogger, getContextualLogger } from './contextualLogger';
 
 import conf from './config';
 
@@ -19,7 +19,7 @@ logger.configure({
 /**
  * Contextual logger that needs to be passed ctx, msg, and possible meta
  */
-const ctxLogger: ContextualLogger = getContextualLogger(conf.get('reqIdHeader'), logger);
+const ctxLogger: IContextualLogger = getContextualLogger(conf.get('reqIdHeader'), logger);
 
 export default ctxLogger;
 

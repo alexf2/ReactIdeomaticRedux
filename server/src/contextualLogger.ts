@@ -10,7 +10,7 @@ type LeveledLogMethod = (ctx: IRouterContext, msg: string, meta?: object) => Win
 /**
  * Winston-like interface
  */
-interface ContextualLogger {
+interface IContextualLogger {
   readonly debug: LeveledLogMethod;
   readonly verbose: LeveledLogMethod;
   readonly info: LeveledLogMethod;
@@ -25,13 +25,13 @@ interface ContextualLogger {
  * @param logger Configured winston instance used for logging
  * @return Logger wrapper where log level methods need `ctx` parameter
  */
-const getContextualLogger: (reqIdHeader: string, logger: Winston.Winston) => ContextualLogger =
+const getContextualLogger: (reqIdHeader: string, logger: Winston.Winston) => IContextualLogger =
   (reqIdHeader, logger) => {
     const getId: (ctx: IRouterContext) => { readonly reqId: string } = (ctx) => ({
       reqId: ctx.req.headers[reqIdHeader] as string
     });
 
-    const log: (ctx: IRouterContext, level: keyof ContextualLogger) => Winston.LeveledLogMethod =
+    const log: (ctx: IRouterContext, level: keyof IContextualLogger) => Winston.LeveledLogMethod =
       (ctx, level): Winston.LeveledLogMethod =>
         (msg: string, meta?: object): Winston.LoggerInstance => {
           if (meta instanceof Error) {
@@ -61,4 +61,4 @@ const getContextualLogger: (reqIdHeader: string, logger: Winston.Winston) => Con
     };
   };
 
-export { ContextualLogger, getContextualLogger };
+export { IContextualLogger, getContextualLogger };
