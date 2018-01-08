@@ -1,2 +1,5 @@
 Project templates & using TS with Node:
 	https://habrahabr.ru/post/328466/
+
+Template Webpack 3, Jest
+https://github.com/Technologeek/react-webpack-3-boilerplate
