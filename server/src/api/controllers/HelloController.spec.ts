@@ -11,12 +11,13 @@ const request: SuperTest<Test> = supertest.agent(app.listen());
 
 describe('Hello API', () => {
 
-  it('lists hellos', () =>
-    request
+  it('lists hellos', () => {
+     expect(request
       .get('/api/hellos')
       .expect(200)
-      .then(R.props(['body']))
-      .then(R.head)
-      .should.eventually.be.fulfilled
-      .and.have.length.of.at.least(1));
-});
+      .then(R.props(['text']))
+      .then(R.head))
+      .resolves.toBe("Hello")
+    }
+  )
+})

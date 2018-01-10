@@ -13,7 +13,6 @@ import errorHandler from '../../middleware/errorHandler';
 const list: (ctx: IRouterContext) => Promise<any> =
   async(ctx) => {
     ctxLogger.info(ctx, 'Someone needs a greeting');
-
     ctx.body = 'Hello';
   };
 
