@@ -67,7 +67,6 @@
     "watch": "^1.0.2",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^2.0.2",
-    "webpack-fail-plugin": "^2.0.0",
     "webpack-hot-middleware": "^2.17.0"
   },
   "scripts": {

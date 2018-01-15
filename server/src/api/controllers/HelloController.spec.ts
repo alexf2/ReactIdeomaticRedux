@@ -17,7 +17,7 @@ describe('Hello API', () => {
       .expect(200)
       .then(R.props(['text']))
       .then(R.head))
-      .resolves.toBe("Hello")
+      .resolves.toBe('Hello')
     }
   )
 })

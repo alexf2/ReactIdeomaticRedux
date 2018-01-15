@@ -22,9 +22,13 @@
     ]
   },
   "compileOnSave": false,
-  "filesGlob": [
-    "client/**/*.ts",
-    "client/**/*.tsx",
-    "!node_modules/**"
+  "include": ["client/**/*.tsx", "client/**/*.ts"],
+  "exclude": [
+    "node_modules/**",
+    "__tests__/**",
+    "**/*.spec.ts",
+    "**/*.spec.tsx",
+    "**/*-spec.ts",
+    "**/*-spec.tsx"
   ]
 }
