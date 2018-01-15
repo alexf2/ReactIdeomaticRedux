@@ -1,13 +1,13 @@
 {
-  "extends": [
-    "tslint-eslint-rules"
-  ],
+  "extends": "tslint-eslint-rules",
   "rulesDirectory": [
     "node_modules/tslint-immutable/rules"
   ],
   "linterOptions": {
     "exclude": [
-      "*.spec.ts"
+      "*.spec.*",
+      "*.test.*",
+      "__tests__/**/*.*"
     ]
   },
   "rules": {
@@ -64,7 +64,7 @@
     ],
     "quotemark": [true, "single"],
     "radix": true,
-    "semicolon": true,
+    "semicolon": false,
     "triple-equals": [true, "allow-null-check"],
     "typedef": [true,
       "callSignature",

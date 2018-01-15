@@ -8,7 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
-module.exports = {  
+module.exports = {
   module: {
     rules: [
       {
@@ -16,8 +16,8 @@ module.exports = {
         loader: 'json-loader'
       },
       {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|jsx?)$)/,
         use: [
           {
             loader: 'tslint-loader',
@@ -50,12 +50,12 @@ module.exports = {
         })
       },
       {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|tsx?)$)/,
         use: [
           {
             loader: 'ts-loader',
-            options: {configFile: 'tsconfig.json'}
+            options: {configFile: 'tsconfig-cli.json'}
           }
         ]
       }
@@ -95,7 +95,15 @@ module.exports = {
     ]
   },
   entry: {
-    app: `./${conf.path.src('index')}`,
+    app: [require.resolve('./polyfills.js'), `./${conf.path.src('index')}`],
     vendor: Object.keys(pkg.dependencies)
+  },
+  node: {
+    __dirname: true,
+    __filename: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
   }
 };

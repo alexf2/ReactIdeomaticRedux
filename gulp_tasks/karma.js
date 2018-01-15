@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'test';
 const path = require('path');
 
 const gulp = require('gulp');
-const karma = require('karma');
+//const karma = require('karma');
 
 gulp.task('karma:single-run', karmaSingleRun);
 gulp.task('karma:auto-run', karmaAutoRun);

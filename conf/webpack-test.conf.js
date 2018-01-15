@@ -24,17 +24,17 @@ module.exports = {
         use: [
           {
             loader: 'ts-loader',
-            options: {configFile: 'tsconfig.json'}
+            options: {configFile: 'tsconfig-cli.json'}
           }
         ]
-      } 
+      }
     ]
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
       debug: true
     })
-  ],  
+  ],
   resolve: {
     extensions: [
       '.webpack.js',
@@ -42,7 +42,7 @@ module.exports = {
       '.js',
       '.ts',
       '.tsx'
-    ] 
+    ]
   },
   externals: {
     jsdom: 'window',
