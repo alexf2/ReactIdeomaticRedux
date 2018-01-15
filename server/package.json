@@ -7,13 +7,13 @@
     "node": ">= 7.6.0"
   },
   "scripts": {
-    "start": "concurrently 'npm run run:dev' 'npm run lint:watch'",
-    "run:dev": "cross-env NODE_ENV=development nodemon -w src --exec 'ts-node --project tsconfig-srv.json' src/index.ts",
+    "start": "concurrently \"npm run run:dev\" \"npm run lint:watch\"",
+    "run:dev": "cross-env NODE_ENV=development nodemon -w src --exec \"ts-node --project tsconfig-srv.json\" src/index.ts",
     "run:prod": "cross-env NODE_ENV=production ts-node --project tsconfig-srv.json build/index.js",
     "build": "tsc --project tsconfig-srv.json",
     "build:watch": "tsc --project tsconfig-srv.json -w",
-    "lint": "tslint -p tsconfig-srv.json -c ../tslint.json 'src/**/*.ts'",
-    "lint:watch": "watch 'npm run lint -- --force' ./src -du --wait=0.2",
+    "lint": "tslint -p tsconfig-srv.json -c ../tslint.json \"src/**/*.ts\"",
+    "lint:watch": "watch \"npm run lint -- --force\" ./src -du --wait=0.2",
     "test": "jest --watch --config ./jest/jest-config.json"
   },
   "devDependencies": {
