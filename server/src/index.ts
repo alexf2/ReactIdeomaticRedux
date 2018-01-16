@@ -9,7 +9,6 @@ import requestId from './middleware/requestId';
 import conf from './config';
 import { ctxLogger, logger } from './logger';
 import ApiRouter from './router';
-
 const reqIdHeader: string = conf.get('reqIdHeader');
 
 export default class RandomApi extends Koa {

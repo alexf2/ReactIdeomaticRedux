@@ -25,10 +25,6 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "autoprefixer": "^7.2.3",
-    "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.3",
-    "babel-loader": "^7.1.2",
-    "babel-preset-react": "^6.23.0",
     "browser-sync": "^2.18.8",
     "browser-sync-spa": "^1.0.3",
     "css-loader": "^0.28.7",
@@ -65,10 +61,12 @@
     "style-loader": "^0.19.1",
     "ts-loader": "^3.2.0",
     "tslint": "^5.8.0",
-    "tslint-loader": "^3.4.2",
     "tslint-eslint-rules": "^4.1.0",
     "tslint-immutable": "^4.0.1",
+    "tslint-loader": "^3.4.2",
+    "tslint-react": "^3.4.0",
     "typescript": "^2.6.2",
+    "typescript-eslint-parser": "^12.0.0",
     "webpack": "^3.10.0",
     "webpack-dev-middleware": "^2.0.2",
     "webpack-hot-middleware": "^2.17.0"
@@ -79,19 +77,19 @@
     "serve:dist": "gulp serve:dist",
     "test": "gulp test",
     "test:auto": "gulp test:auto",
-    "lint": "tslint client/**/*.tsx client/**/*.ts --project tsconfig.json && eslint --ext .js --ext .jsx src --quiet",
-    "lint:fix": "eslint --ext .js --ext .jsx src --fix && tslint --fix src/**/*.tsx src/**/*.ts --project tsconfig.json"
+    "lint": "tslint -p tsconfig-cli.json -c tslint.json \"client/**/*.{ts,tsx}\" && eslint --ext \"client/**/*.{js,jsx}\"  --quiet",
+    "lint:fix": "eslint --ext \"client/**/*.{js,jsx}\"  --fix && tslint --fix -p tsconfig-cli.json -c tslint.json \"client/**/*.{ts,tsx}\" "
   },
   "eslintConfig": {
     "root": true,
     "env": {
       "browser": true,
-      "jasmine": true
+      "jest": true
     },
     "extends": [
       "xo-react/space",
       "xo-space/esnext"
     ],
-    "parser": "babel-eslint"
+    "parser": "typescript-eslint"
   }
 }

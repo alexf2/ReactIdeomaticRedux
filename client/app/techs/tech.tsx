@@ -53,6 +53,6 @@ export class TechComponent extends React.Component<ITechProps, ITechState> {
         <p>{this.props.tech.text1}</p>
         <p>{this.props.tech.text2}</p>
       </div>
-    );
+    )
   }
 }
