@@ -14,8 +14,8 @@ module.exports = {
         loader: 'json-loader'
       },
       {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|jsx?)$)/,
         use: [
           {
             loader: 'tslint-loader',
@@ -23,12 +23,12 @@ module.exports = {
           }
         ],
         enforce: 'pre'
-      },
+      }, 
       {
         test: /\.(css|scss)$/,
         use: [
           'style-loader',
-          'css-loader',          
+          'css-loader',
           {
             loader: 'postcss-loader',
             options: {
@@ -43,8 +43,8 @@ module.exports = {
         ]
       },
       {
-        test: /\.tsx$/,
-        exclude: /node_modules/,
+        test: /\.tsx?$/,
+        exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|jsx?)$)/,
         use: [
           'react-hot-loader/webpack',
           {
@@ -75,6 +75,7 @@ module.exports = {
       '.webpack.js',
       '.web.js',
       '.js',
+      '.jsx',
       '.ts',
       '.tsx'
     ]
@@ -82,6 +83,15 @@ module.exports = {
   entry: [
     'webpack/hot/dev-server',
     'webpack-hot-middleware/client',
+    require.resolve('./polyfills.js'),
     `./${conf.path.src('index')}`
-  ]
+  ],
+  node: {
+    __dirname: true,
+    __filename: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty'
+  }
 };

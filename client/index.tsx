@@ -1,4 +1,4 @@
-import 'es6-promise';
+//import 'es6-promise';
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -9,9 +9,9 @@ import {Main} from './app/main';
 import './index.scss';
 
 ReactDOM.render(
-  <BrowserRouter >
+  <BrowserRouter>
     <div>
-      <Route path='/' component={Main}/>
+      <Route path='/' component={Main} />
     </div>
   </BrowserRouter>,
   document.getElementById('root')

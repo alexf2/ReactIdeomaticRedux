@@ -11,6 +11,11 @@
 const path = require('path');
 const gutil = require('gulp-util');
 
+const nodePaths = (process.env.NODE_PATH || '')
+  .split(process.platform === 'win32' ? ';' : ':')
+  .filter(Boolean)
+  .map(p => path.resolve(p));
+
 /**
  *  The main paths of your project handle these with care
  */
@@ -20,7 +25,8 @@ exports.paths = {
   tmp: '.tmp',
   e2e: 'e2e',
   tasks: 'gulp_tasks',
-  tmpSrv: '.tmp-srv'
+  tmpSrv: '.tmp-srv',
+  nodePaths
 };
 
 /**

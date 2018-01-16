@@ -1,0 +1,29 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "jsx",
+    "ts",
+    "tsx",
+    "json"
+  ],
+  "coverageDirectory": "<rootDir>../client/coverage/",
+  "transformIgnorePatterns": ["<rootDir>../node_modules/"],
+  "testEnvironment": "jsdom",
+  "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|js|jsx|tsx)$",
+  "transform": {".tsx?$": "ts-jest"},
+  "roots": [
+    "<rootDir>../client"
+  ],
+  "globals": {
+    "ts-jest": {
+      "tsConfigFile": "tsconfig-cli.json"
+    }
+  },
+  "moduleNameMapper": {
+    "^[./a-zA-Z0-9$_-]+\\.(jpg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm)$": "<rootDir>./FileStub.js",
+    "^[./a-zA-Z0-9$_-]+\\.(css|less|scss)$": "<rootDir>./CSSStub.js"
+  },
+  "setupFiles": [
+    "<rootDir>./polyfills.js"
+  ]
+}

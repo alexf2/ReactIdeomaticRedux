@@ -20,12 +20,16 @@ const styles: React.CSSProperties = {
 interface IMainProps {}
 
 interface IMainState {}
-
+/*{m.keys().map(it => (<li>m.get(it)</li>))}*/
 export class Main extends React.Component<IMainProps, IMainState> {
   render() {
+    /*let m = new Map()
+    m.set(1, 'My val 1')
+    m.set(2, 'My val 2')*/
     return (
       <div style={styles.container}>
         <Header/>
+        <ul>&nbsp;</ul>
         <main style={styles.main}>
           <Title/>
           <Techs/>
