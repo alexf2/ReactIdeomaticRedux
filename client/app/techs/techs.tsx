@@ -46,9 +46,7 @@ export class Techs extends React.Component<ITechsProps, ITechsState> {
           Cooked with all these awesome technologies:
         </h2>
         <div style={styles.techs as any}>
-          {this.state.techs.map((tech: Tech, i: number) => (
-            <TechComponent key={i} tech={tech}/>
-          ))}
+          {this.state.techs.map((tech: Tech, i: number) => (<TechComponent key={i} tech={tech}/>))}
         </div>
       </div>
     );

@@ -62,6 +62,7 @@
     "tslint-eslint-rules": "^4.1.1",
     "tslint-immutable": "^4.5.0",
     "tslint-loader": "^3.4.2",
+    "tslint-react": "^3.4.0",
     "typescript": "^2.6.2",
     "typescript-eslint-parser": "^11.0.0",
     "watch": "^1.0.2",
@@ -73,8 +74,8 @@
     "build": "gulp",
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
-     "test": "jest --watch --config ./conf/jest.conf.json",
-    "lint": "tslint -p tsconfig-cli.json -c tslint.json \"client/**/*.{ts,tsx}\" && eslint --ext \"client/**/*.{js,jsx}\"  --quiet",
+    "test": "jest --watch --config ./conf/jest.conf.json",
+    "lint": "tslint -p tsconfig-cli.json -c tslint.json \"client/**/*.{ts,tsx}\" && eslint --ext .js --ext .jsx ./client --quiet",
     "lint:fix": "eslint --ext \"client/**/*.{js,jsx}\"  --fix && tslint --fix -p tsconfig-cli.json -c tslint.json \"client/**/*.{ts,tsx}\" "
   },
   "eslintConfig": {
