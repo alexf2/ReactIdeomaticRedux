@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {hot} from 'react-hot-loader'
 import {Header} from './header';
 import {Title} from './title';
 import {Techs} from './techs/techs';
@@ -21,7 +22,7 @@ interface IMainProps {}
 
 interface IMainState {}
 /*{m.keys().map(it => (<li>m.get(it)</li>))}*/
-export class Main extends React.Component<IMainProps, IMainState> {
+class Application extends React.Component<IMainProps, IMainState> {
   render() {
     /*let m = new Map()
     m.set(1, 'My val 1')
@@ -39,3 +40,7 @@ export class Main extends React.Component<IMainProps, IMainState> {
     );
   }
 }
+
+const Main = hot(module)(Application)
+
+export {Main}

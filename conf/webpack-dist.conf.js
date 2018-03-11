@@ -1,4 +1,6 @@
 const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 const conf = require('./gulp.conf');
 const path = require('path');
 
@@ -8,6 +10,57 @@ const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
+  mode: 'production',
+  devtool: 'source-map',
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new UglifyJSPlugin({
+        uglifyOptions: {
+          sourceMap: true
+        }
+      })
+    ],
+    /*runtimeChunk: { name: 'vendor' },
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /\.tsx?$/,
+          name: 'vendor',
+          chunks: 'all'
+        }
+      }
+    }*/
+
+    /*runtimeChunk: { name: 'vendor' },
+    splitChunks: {
+        cacheGroups: {
+          default: false,
+          commons: { //vendor
+                test: /\.jsx?$/,
+                name: "vendor",
+                chunks: "all", //initial
+                enforce: true,
+                minSize: 1,
+                minChunks: 2,
+            }
+        }
+    }*/
+
+
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /\.jsx?$/,
+          name: 'vendor',
+          chunks: "all",
+          enforce: true,
+          minSize: 1,
+          minChunks: 2,
+        }
+      }
+    },
+  },
   module: {
     rules: [
       {
@@ -69,12 +122,7 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
-    new webpack.optimize.UglifyJsPlugin({
-      output: {comments: false},
-      compress: {unused: true, dead_code: true, warnings: false} // eslint-disable-line camelcase
-    }),
     new ExtractTextPlugin('index-[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
     new webpack.LoaderOptionsPlugin({
       debug: false
     })
@@ -88,6 +136,7 @@ module.exports = {
       '.webpack.js',
       '.web.js',
       '.js',
+      '.jsx',
       '.ts',
       '.tsx'
     ]

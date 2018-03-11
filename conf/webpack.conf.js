@@ -7,7 +7,16 @@ const autoprefixer = require('autoprefixer');
 const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
 const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
+/*
+//root dir
+console.log(process.cwd());
+
+//file dir
+console.log(__dirname);
+*/
+
 module.exports = {
+  mode: 'development',
   devtool: 'source-map',
   module: {
     rules: [
@@ -48,7 +57,7 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|jsx?)$)/,
         use: [
-          'react-hot-loader/webpack',
+          'babel-loader',
           {
             loader: 'ts-loader',
             options: {configFile: require.resolve('../tsconfig-cli.json')}
@@ -70,11 +79,12 @@ module.exports = {
     // See https://github.com/facebookincubator/create-react-app/issues/240
     new CaseSensitivePathsPlugin(),
     // See https://github.com/facebookincubator/create-react-app/issues/186
-    new WatchMissingNodeModulesPlugin(path.resolve(__dirname, 'node_modules'))
+    // new WatchMissingNodeModulesPlugin(path.join(process.cwd(), 'node_modules'))
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.tmp),
-    filename: 'index.js'
+    filename: 'index.js',
+    publicPath: '/'
   },
   resolve: {
     extensions: [
@@ -87,8 +97,11 @@ module.exports = {
     ]
   },
   entry: [
+    //'react-hot-loader/patch',
     'webpack/hot/dev-server',
-    'webpack-hot-middleware/client',
+     'webpack-hot-middleware/client',
+    /*'webpack-dev-server/client',
+    'webpack/hot/only-dev-server',*/
     require.resolve('./polyfills.js'),
     `./${conf.path.src('index')}`
   ],
@@ -101,6 +114,8 @@ module.exports = {
     child_process: 'empty'
   },
   devServer: {
+    contentBase: conf.paths.tmp,
+    publicPath: '/',
     host: 'localhost',
     port: 8080,
     historyApiFallback: true,
