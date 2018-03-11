@@ -1,4 +1,5 @@
 const conf = require('./gulp.conf');
+const get = require('lodash/get');
 
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -9,6 +10,7 @@ const webpackBundler = webpack(webpackConf);
 
 module.exports = function () {
   return {
+    port: get(webpackConf, 'devServer.port', 3001),
     server: {
       baseDir: [
         conf.paths.tmp,

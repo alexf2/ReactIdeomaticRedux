@@ -1,27 +1,33 @@
 const gulp = require('gulp');
+const get = require('lodash/get');
 const gutil = require('gulp-util');
-
 const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+
 const webpackConf = require('../conf/webpack.conf');
 const webpackDistConf = require('../conf/webpack-dist.conf');
 const gulpConf = require('../conf/gulp.conf');
 
-gulp.task('webpack:dev', done => {
-  webpackWrapper(false, webpackConf, done);
+const CompileMode = Object.freeze({
+  Compile: 0,
+  CompileAndWatch: 1,
+  CompileUsingDevServer: 2
+});
+
+gulp.task('webpack:light', done => {
+  webpackCompile(CompileMode.CompileUsingDevServer, webpackConf, done);
 });
 
 gulp.task('webpack:watch', done => {
-  webpackWrapper(true, webpackConf, done);
+  webpackCompile(CompileMode.CompileAndWatch, webpackConf, done);
 });
 
 gulp.task('webpack:dist', done => {
   process.env.NODE_ENV = 'production';
-  webpackWrapper(false, webpackDistConf, done);
+  webpackCompile(CompileMode.Compile, webpackDistConf, done);
 });
 
-function webpackWrapper(watch, conf, done) {
-  const webpackBundler = webpack(conf);
-
+function webpackCompile(mode, conf, done) {
   const webpackChangeHandler = (err, stats) => {
     if (err) {
       gulpConf.errorHandler('Webpack')(err);
@@ -32,15 +38,28 @@ function webpackWrapper(watch, conf, done) {
       hash: false,
       version: false
     }));
-    if (done) {
+
+    if (done) { // Execute callback once
       done();
       done = null;
     }
   };
 
-  if (watch) {
-    webpackBundler.watch(200, webpackChangeHandler);
-  } else {
-    webpackBundler.run(webpackChangeHandler);
+  switch (mode) {
+    case CompileMode.CompileAndWatch:
+      webpack(conf).watch(200, webpackChangeHandler);
+      break;
+
+    case CompileMode.CompileUsingDevServer: {
+      const webpackBundler = webpack(conf, webpackChangeHandler);
+      new WebpackDevServer(webpackBundler, conf.devServer).listen(get(conf, 'devServer.port', 3001), err => {
+        if (err)
+          gulpConf.errorHandler('WebpackDevServer')(err);
+      });
+      break;
+    }
+
+    default:
+      webpack(conf).run(webpackChangeHandler);
   }
 }

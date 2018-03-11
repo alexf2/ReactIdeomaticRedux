@@ -4,6 +4,8 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin')
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -23,7 +25,7 @@ module.exports = {
           }
         ],
         enforce: 'pre'
-      }, 
+      },
       {
         test: /\.(css|scss)$/,
         use: [
@@ -64,7 +66,11 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.LoaderOptionsPlugin({
       debug: true
-    })
+    }),
+    // See https://github.com/facebookincubator/create-react-app/issues/240
+    new CaseSensitivePathsPlugin(),
+    // See https://github.com/facebookincubator/create-react-app/issues/186
+    new WatchMissingNodeModulesPlugin(path.resolve(__dirname, 'node_modules'))
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.tmp),
@@ -93,5 +99,27 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  devServer: {
+    host: 'localhost',
+    port: 8080,
+    historyApiFallback: true,
+    quiet: false,
+    inline: true,
+    open: true,
+    openPage: '',
+    stats: {
+      colors: true,
+      hash: false,
+      chunks: false,
+      chunkModules: false,
+      chunkOrigins: false,
+      modules: false,
+      moduleTrace: false,
+      assets: true,
+      version: true,
+      reasons: true,
+      errorDetails: true
+    }
   }
 };
