@@ -12,7 +12,7 @@ const CompileMode = Object.freeze({
   Compile: 0,
   CompileAndWatch: 1,
   CompileUsingDevServer: 2
-})
+});
 
 gulp.task('webpack:light', done => {
   webpackCompile(CompileMode.CompileUsingDevServer, webpackConf, done)
@@ -39,17 +39,18 @@ function webpackCompile(mode, conf, done) {
       chunks: false,
       hash: false,
       version: false
-    }))
+    }));
 
     if (done) { // Execute callback once
       done()
       done = null
   }
+}
 
   switch (mode) {
     case CompileMode.CompileAndWatch:
       webpack(conf).watch(200, webpackChangeHandler)
-      break
+      break;
 
     case CompileMode.CompileUsingDevServer: {
       const webpackBundler = webpack(conf, webpackChangeHandler)
@@ -62,10 +63,10 @@ function webpackCompile(mode, conf, done) {
             done = null
           }
       })
-      break
+      break;
     }
 
     default:
-      webpack(conf).run(webpackChangeHandler)
+      webpack(conf).run(webpackChangeHandler);
   }
-}
+};
