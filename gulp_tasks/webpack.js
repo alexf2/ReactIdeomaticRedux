@@ -7,12 +7,13 @@ const WebpackDevServer = require('webpack-dev-server')
 const webpackConf = require('../conf/webpack.conf')
 const webpackDistConf = require('../conf/webpack-dist.conf')
 const gulpConf = require('../conf/gulp.conf')
+const open = require('open')
 
 const CompileMode = Object.freeze({
   Compile: 0,
   CompileAndWatch: 1,
   CompileUsingDevServer: 2
-});
+})
 
 gulp.task('webpack:light', done => {
   webpackCompile(CompileMode.CompileUsingDevServer, webpackConf, done)
@@ -27,46 +28,55 @@ gulp.task('webpack:dist', done => {
   webpackCompile(CompileMode.Compile, webpackDistConf, done)
 })
 
-let srv;
-
 function webpackCompile(mode, conf, done) {
   const webpackChangeHandler = (err, stats) => {
-    if (err)
+    if (err) {
       gulpConf.errorHandler('Webpack')(err)
+    }
 
     gutil.log(stats.toString({
       colors: true,
       chunks: false,
       hash: false,
       version: false
-    }));
+    }))
 
     if (done) { // Execute callback once
       done()
       done = null
+    }
   }
-}
 
   switch (mode) {
     case CompileMode.CompileAndWatch:
       webpack(conf).watch(200, webpackChangeHandler)
-      break;
+      break
 
     case CompileMode.CompileUsingDevServer: {
-      const webpackBundler = webpack(conf, webpackChangeHandler)
-      srv = new WebpackDevServer(webpackBundler, conf.devServer).listen(get(conf, 'devServer.port', 3001), err => {
+      const webpackBundler = webpack(conf)
+      const port = get(conf, 'devServer.port', 3001),
+            host = get(conf, 'devServer.host', '127.0.0.1')
+
+      webpackBundler.plugin('done', () => {
+        if (done) { // Execute callback once
+          done()
+          done = null
+        }
+        open(`http://${host}:${port}`);
+      })
+      srv = new WebpackDevServer(webpackBundler, conf.devServer).listen(port, host, err => {
         if (err)
           gulpConf.errorHandler('WebpackDevServer')(err)
 
-          if (done) { // Execute callback once
-            done()
-            done = null
-          }
+        if (done) { // Execute callback once
+          done()
+          done = null
+        }
       })
-      break;
+      break
     }
 
     default:
-      webpack(conf).run(webpackChangeHandler);
+      webpack(conf).run(webpackChangeHandler)
   }
-};
+}

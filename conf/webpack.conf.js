@@ -77,9 +77,7 @@ module.exports = {
       debug: true
     }),
     // See https://github.com/facebookincubator/create-react-app/issues/240
-    new CaseSensitivePathsPlugin(),
-    // See https://github.com/facebookincubator/create-react-app/issues/186
-    // new WatchMissingNodeModulesPlugin(path.join(process.cwd(), 'node_modules'))
+    new CaseSensitivePathsPlugin()
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.tmp),
@@ -99,7 +97,7 @@ module.exports = {
   entry: [
     //'react-hot-loader/patch',
     'webpack/hot/dev-server',
-     'webpack-hot-middleware/client',
+    'webpack-hot-middleware/client',
     /*'webpack-dev-server/client',
     'webpack/hot/only-dev-server',*/
     require.resolve('./polyfills.js'),
@@ -114,15 +112,16 @@ module.exports = {
     child_process: 'empty'
   },
   devServer: {
-    contentBase: conf.paths.tmp,
+    contentBase: 'client',
     publicPath: '/',
     host: 'localhost',
-    port: 8080,
+    port: 3005,
     historyApiFallback: true,
     quiet: false,
     inline: true,
-    open: true,
-    openPage: '',
+    //open: true,
+    //openPage: '',
+    // hot: true,
     stats: {
       colors: true,
       hash: false,

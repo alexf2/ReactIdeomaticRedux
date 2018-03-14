@@ -56,10 +56,10 @@ module.exports = {
           chunks: "all",
           enforce: true,
           minSize: 1,
-          minChunks: 2,
+          minChunks: 2
         }
       }
-    },
+    }
   },
   module: {
     rules: [
@@ -105,6 +105,7 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /(node_modules|__tests__)|(\.(test|spec)\.(tsx?|tsx?)$)/,
         use: [
+          'babel-loader',
           {
             loader: 'ts-loader',
             options: {configFile: require.resolve('../tsconfig-cli.json')}
@@ -129,7 +130,8 @@ module.exports = {
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
-    filename: '[name]-[hash].js'
+    filename: '[name]-[hash].js',
+    publicPath: '/'
   },
   resolve: {
     extensions: [
